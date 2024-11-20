@@ -149,7 +149,7 @@ The following routes are available in the `Routes/AuthRoutes.js/EventRoutes.js` 
 | PUT        |`/api/events/updateEvent/:eventId`| To update the event      | Required         |
 | DELETE     |`/api/events/deleteEvent/:eventId`| To delete the event      | Required         |
 | POST       |`/api/events/:eventId/register`| To create the events(attendee)| Required       |
-| POST       |`/api/events/getAllEvents`| To get all the events            | Required         |
+| GET        |`/api/events/getAllEvents`| To get all the events            | Required         |
 | ---------- | ------------------------ | -------------------------------- | ---------------- |
 
 
