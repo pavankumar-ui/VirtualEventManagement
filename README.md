@@ -17,13 +17,7 @@ A simple RESTful API for managing events built with Node.js, express.js and mong
 6. Testing the API using Postman
 
 
-a.To Signup and Login
-b. To Get all the events who created according to loggedin user (Attendee Role)
-c. To Register an Event with the specific EventId Parameter along with token(who are attendee loggedin).
-d. To Get (read) the events according to Organiner who is logged in (Organizer Role)
-e. To Create a new event with the specific OrganizerId Parameter along with token(who are organizer loggedin).
-f. To Update an event by eventId Parameter along with token(who are organizer loggedin).
-g. To Delete an event by eventId Parameter along with token(who are organizer loggedin).
+
 
 ## Features
 
