@@ -118,9 +118,6 @@ const RegisterTheEventandNotify = async (req, res, next) => {
         const Event_time = event.event_time;
         const Event_description = event.event_description;
         const Attendee_name = user.username;
-        //console.log(OrganizerEmail.organizerId.email);
-        //console.log(AttendeeEmail.email);
-        //console.log(user);
 
 
         //check whether the user is attendee or not//
@@ -168,7 +165,7 @@ const RegisterTheEventandNotify = async (req, res, next) => {
                 }
             });
 
-        //send the mail to the user to notify registered event invite//
+        //send the response to the user to notify registered event invite//
         return res.status(200).json({
             "message": "Event Registered Successfully! Check your Mail for the details",
             "eventId": event._id

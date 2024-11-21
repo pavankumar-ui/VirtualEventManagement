@@ -5,8 +5,8 @@ const {validateRegistration,
     validateLogin} = require("../Middlewares/Validate");
 const {SignupUser,SigninUser,getProfile} = require("../Controllers/AuthController");
 
-/*const secret = crypto.randomBytes(32).toString("base64");
-console.log(secret);*/
+/*const secret = crypto.randomBytes(32).toString("base64");*/
+
 
 router.post("/register",validateRegistration,SignupUser);
 router.post("/login",validateLogin,SigninUser);

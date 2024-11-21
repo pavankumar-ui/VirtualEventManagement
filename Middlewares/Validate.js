@@ -5,8 +5,8 @@ const Registrationschema = joi.object({
     username: joi.string().required(),
     email: joi.string().email().required(),
     password: joi.string()
-    .pattern(new RegExp("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$"))
-    .required(),
+        .pattern(new RegExp("^(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$"))
+        .required(),
     phone: joi.number(),
     role: joi.string().required(),
 });
@@ -26,7 +26,7 @@ const eventSchema = joi.object({
     participants: joi.array().items(joi.string()).optional() // Optional array of participant IDs
 });
 
-const ValidateErrors =   (error, res,next) => {
+const ValidateErrors = (error, res, next) => {
     return res.status(400).json({ error: error.details[0].message });
 }
 
@@ -34,14 +34,14 @@ const ValidateErrors =   (error, res,next) => {
 const validateRegistration = (req, res, next) => {
     const { error } = Registrationschema.validate(req.body);
     if (error) {
-        ValidateErrors(error, res,next);
+        ValidateErrors(error, res, next);
     }
     next();
 };
 const validateLogin = (req, res, next) => {
     const { error } = loginSchema.validate(req.body);
     if (error) {
-        ValidateErrors(error, res,next);
+        ValidateErrors(error, res, next);
     }
     next();
 };
@@ -49,7 +49,7 @@ const validateLogin = (req, res, next) => {
 const validateEvent = (req, res, next) => {
     const { error } = eventSchema.validate(req.body);
     if (error) {
-        ValidateErrors(error, res,next);
+        ValidateErrors(error, res, next);
     }
     next();
 };
@@ -57,7 +57,7 @@ const validateEvent = (req, res, next) => {
 
 
 
-    module.exports = {
+module.exports = {
     validateRegistration,
     validateLogin,
     validateEvent

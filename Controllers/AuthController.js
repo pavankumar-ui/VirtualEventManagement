@@ -2,10 +2,9 @@ const User = require("../Model/Usermodel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const {AuthserverError} = require("../Utils/ServerError");
+const { AuthserverError } = require("../Utils/ServerError");
 
-/*const secret = crypto.randomBytes(32).toString("base64");
-console.log(secret);*/
+
 
 
 const SignupUser = async (req, res, next) => {
@@ -15,7 +14,7 @@ const SignupUser = async (req, res, next) => {
         body.password = await bcrypt.hash(body.password, 10);
         const userTable = await User.create(body);
 
-         res.status(201).json({
+        res.status(201).json({
             message: "User registered Successfully",
             user: {
                 id: userTable._id,
@@ -23,11 +22,11 @@ const SignupUser = async (req, res, next) => {
                 username: userTable.username,
             },
         });
-        
+
     }
     catch (err) {
-        //console.log(err);
-        AuthserverError(err,res,next);
+
+        AuthserverError(err, res, next);
     }
 }
 
@@ -50,16 +49,16 @@ const SigninUser = async (req, res, next) => {
             return res.status(401).json({ error: "invalid Credentials" });
         }
 
-            const token = jwt.sign(
-                { email: userTable.email, id: userTable._id ,role: userTable.role},
-                process.env.JWT_SECRET,
-                { expiresIn: "1h" });
+        const token = jwt.sign(
+            { email: userTable.email, id: userTable._id, role: userTable.role },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" });
 
-           return res.status(200).json({ success: true, token, role: userTable.role });
-        
+        return res.status(200).json({ success: true, token, role: userTable.role });
+
     } catch (err) {
         //console.log(err);
-        AuthserverError(err,res,next);
+        AuthserverError(err, res, next);
     }
 }
 
@@ -68,18 +67,18 @@ const SigninUser = async (req, res, next) => {
 const getProfile = async (req, res, next) => {
     try {
         const userTable = await User.findById(req.user.id);
-     return res.status(200).json({
+        return res.status(200).json({
             message: "User Profile",
             user: userTable,
         });
     }
     catch (err) {
         //console.log(err);
-        AuthserverError(err,res,next);
+        AuthserverError(err, res, next);
     }
 }
 
-module.exports ={
+module.exports = {
     SignupUser,
     SigninUser,
     getProfile
