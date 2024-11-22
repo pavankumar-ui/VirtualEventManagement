@@ -26,6 +26,15 @@ const CreateEventBasedonUser = async (req, res, next) => {
     try {
 
         const body = req.body;
+
+          //if date is today r past date then would not create the event//
+          const today = new Date();
+          const eventDate = new Date(body.event_date);
+
+          if(eventDate < today || Date.now())
+            return res.status(400).json({"error": "Event date cannot be in the past date"});
+          
+
         body.organizerId = req.user._id;
         const event = await Event.create(body);
         res.status(201).json({

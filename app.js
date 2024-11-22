@@ -21,8 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-const authRoutes = require("src/Routes/AuthRoutes");
-const eventRoutes = require("src/Routes/EventRoutes");
+const authRoutes = require("./src/Routes/AuthRoutes");
+const eventRoutes = require("./src/Routes/EventRoutes");
 
 
 
