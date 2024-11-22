@@ -44,7 +44,7 @@ const UpdateEventsBasedonUser = async (req, res, next) => {
 
 
         const Updateevent = await Event.findById(req.params.eventId);
-        //console.log(Updateevent);
+        
 
         Updateevent.event_name = req.body.event_name;
         Updateevent.event_description = req.body.event_description;
