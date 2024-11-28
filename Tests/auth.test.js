@@ -6,18 +6,6 @@ const mongoServer = require('./Mongosetup/mongoServer');
 jest.mock('../src/Middlewares/ValidateJWT');
 
 
-
-
-
-
-    //common for testing login and accessing routes//
-  /*let testLogin = {
-        email : "test@gmail.com",
-        password : "test@1234"
-    };*/
-
-
-
 describe("Test for User Registration,Login and profile routes", () => {
 
 
@@ -101,8 +89,7 @@ describe("Test for User Registration,Login and profile routes", () => {
          }
 
 
-    })
-
+    });
 
 
     //to test for signup of user//
@@ -142,10 +129,7 @@ describe("Test for User Registration,Login and profile routes", () => {
            }
     });
 
-    //call the middleware for token validation//
-    
-
-   //to test profile routes//
+    //call the middleware ValidateJWT for token validation to test profile routes//
     it("Should get user Profile with valid token", async()=>{
 
         const loginRes = await request(app)
@@ -175,8 +159,6 @@ describe("Test for User Registration,Login and profile routes", () => {
         expect(res.body.error).toMatch("Token not Found");
       }
     });
-    
-
 });
 
 

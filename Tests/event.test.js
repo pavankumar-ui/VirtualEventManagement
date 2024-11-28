@@ -70,9 +70,6 @@ describe("Test for Creation,updation,deletion and reading of events", () => {
 
     });
 
-
-
-
     //run the login test first before performing CRUD operations of events//
     beforeEach(async () => {
 
