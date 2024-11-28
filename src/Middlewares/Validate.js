@@ -1,7 +1,7 @@
 const joi = require("joi");
 const { validate } = require("../Model/Usermodel");
 
-const Registrationschema = joi.object({
+const registrationSchema = joi.object({
     username: joi.string().required(),
     email: joi.string().email().required(),
     password: joi.string()
@@ -32,7 +32,7 @@ const ValidateErrors = (error, res, next) => {
 
 
 const validateRegistration = (req, res, next) => {
-    const { error } = Registrationschema.validate(req.body);
+    const { error } = registrationSchema.validate(req.body);
     if (error) {
         ValidateErrors(error, res, next);
     }

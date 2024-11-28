@@ -14,15 +14,14 @@ const { GetEventsbasedOnUser,
 
 
     
-//event Routes for Organizer//
-router.get("/Getevents", validateJWT, CheckRole, GetEventsbasedOnUser);
-router.post("/createEvents", validateJWT, CheckRole,validateEvent, CreateEventBasedonUser);
-router.put('/updateEvent/:eventId', validateJWT, CheckRole,validateEvent, UpdateEventsBasedonUser);
-router.delete('/deleteEvent/:eventId', validateJWT, CheckRole, DeleteEventsBasedOnUser);
-//to display the events for the attendees to register//
-router.get('/getAllEvents', validateJWT,GetallEvents);
-// for event Registeration by attendee//
-router.post('/:id/register', validateJWT,RegisterTheEventandNotify);
+// Adjusted routes in `eventRoutes`
+router.get("/", validateJWT, CheckRole, GetEventsbasedOnUser); // Fetch events for a user
+router.post("/", validateJWT, CheckRole, validateEvent, CreateEventBasedonUser); // Create a new event
+router.put("/:eventId", validateJWT, CheckRole, validateEvent, UpdateEventsBasedonUser); // Update an event
+router.delete("/:eventId", validateJWT, CheckRole, DeleteEventsBasedOnUser); // Delete an event
+router.get("/available", validateJWT, GetallEvents); // List available events for attendees
+router.post("/:id/register", validateJWT, RegisterTheEventandNotify); // Register for an event
+
 
 
 module.exports = router;
