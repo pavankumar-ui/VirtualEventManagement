@@ -19,12 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
-
 const authRoutes = require("./src/Routes/AuthRoutes");
 const eventRoutes = require("./src/Routes/EventRoutes");
-
-
 
 app.use("/api/users",authRoutes);
 app.use("/api/events",eventRoutes);

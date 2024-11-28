@@ -112,7 +112,7 @@ const GetallEvents = async (req, res, next) => {
         return res.status(200).json({ events });
     }
     catch (err) {
-        CommonServerError(err, req, res, next);
+       return CommonServerError(err, req, res, next);
     }
 }
 
@@ -186,7 +186,7 @@ const RegisterTheEventandNotify = async (req, res, next) => {
     }
 
     catch (err) {
-        CommonServerError(err, req, res, next);
+       return CommonServerError(err, req, res, next);
     }
 }
 

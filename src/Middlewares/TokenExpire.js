@@ -6,8 +6,9 @@
         error: 'Token has expired',
         message: 'Please login again to get a new token'
       });
+      //next(err);
     }
-    next(err);
+    //next(err);
   });
 
 module.exports = TokenExpire;
