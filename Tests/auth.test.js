@@ -6,9 +6,8 @@ const mongoServer = require('./Mongosetup/mongoServer');
 jest.mock('../src/Middlewares/ValidateJWT');
 
 
+
 describe("Test for User Registration,Login and profile routes", () => {
-
-
     let User =
     {
         username: "test",
@@ -87,10 +86,7 @@ describe("Test for User Registration,Login and profile routes", () => {
                 expect(res.body.error).toMatch("All fields are required");
             }
          }
-
-
     });
-
 
     //to test for signup of user//
     it("Should login for a user", async ()=>{
@@ -160,8 +156,4 @@ describe("Test for User Registration,Login and profile routes", () => {
       }
     });
 });
-
-
-
-
 jest.setTimeout(50000);
