@@ -7,7 +7,7 @@ const ValidateJWT = async (req, res, next) => {
 
 
     if (!token) {
-        return res.status(499).json({ "error": "Token not found" });
+        return res.status(400).json({ "error": "Token not found" });
     }
 
     try {

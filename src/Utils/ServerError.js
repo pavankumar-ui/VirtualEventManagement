@@ -4,9 +4,9 @@ const CommonServerError =  (err,req,res,next)=>{
 
     TokenExpire(err, req, res, next);
     if (err && !res.headersSent) {
-    return res.status(500).json({ "error": "Internal Server Error" });
+     res.status(500).json({ "error": "Internal Server Error" });
+     return;
     }
-    next(err);
 }
 
 const AuthserverError = (err, res, next) => {

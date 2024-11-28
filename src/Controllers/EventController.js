@@ -2,6 +2,7 @@ const Event = require("../Model/Eventmodel");
 const User = require("../Model/Usermodel");
 const { CommonServerError } = require("../Utils/ServerError");
 const transporter = require("../Mail/RegisterNotify");
+const  DateValidator  = require("../Utils/DateValidator");
 
 
 
@@ -11,13 +12,14 @@ const GetEventsbasedOnUser = async (req, res, next) => {
 
         //display the events based on the user loggedin (Organizer)//
         const events = await Event.find({ organizerId: req.user._id });
+       
         if (events.length === 0) {
             return res.status(404).json({ "error": "No events found, create the event!" });
         }
-        res.status(200).json({ events });
+       return res.status(200).json({ events });
     }
     catch (err) {
-        CommonServerError(err, req, res, next);
+       return CommonServerError(err, req, res, next);
     }
 }
 
@@ -27,23 +29,18 @@ const CreateEventBasedonUser = async (req, res, next) => {
 
         const body = req.body;
 
-          //if date is today r past date then would not create the event//
-          const today = new Date();
-          const eventDate = new Date(body.event_date);
-
-          if(eventDate < today || Date.now())
-            return res.status(400).json({"error": "Event date cannot be in the past date"});
-          
+        //if date is today r past date then would not create the event,call dateValidator to check //
+         DateValidator(body,res);
 
         body.organizerId = req.user._id;
         const event = await Event.create(body);
-        res.status(201).json({
+       return res.status(201).json({
             message: "Event Created Successfully",
             eventId: event._id
         });
 
     } catch (err) {
-        CommonServerError(err, req, res, next);
+     return  CommonServerError(err, req, res, next);
     }
 }
 
@@ -51,9 +48,11 @@ const UpdateEventsBasedonUser = async (req, res, next) => {
 
     try {
 
-
         const Updateevent = await Event.findById(req.params.eventId);
-        
+
+        const ValidationError = DateValidator(req.body,res);
+       
+        if(ValidationError) return;
 
         Updateevent.event_name = req.body.event_name;
         Updateevent.event_description = req.body.event_description;
@@ -61,13 +60,13 @@ const UpdateEventsBasedonUser = async (req, res, next) => {
         Updateevent.event_time = req.body.event_time;
 
         await Updateevent.save();
-        res.status(200).json({
+        return res.status(200).json({
             message: "Event Updated Successfully",
             eventId: Updateevent._id
         });
 
     } catch (err) {
-        CommonServerError(err, req, res, next);
+        return CommonServerError(err, req, res, next);
     }
 
 }
@@ -79,13 +78,18 @@ const DeleteEventsBasedOnUser = async (req, res, next) => {
         const DeleteEvent = await Event.findByIdAndDelete(req.params.eventId);
         console.log('deleted Event:', DeleteEvent);
 
+
+       if (!DeleteEvent || req.params.eventId === "") {
+            return res.status(404).json({ "error": "Event not found" });
+        }
+
         res.status(200).json({
             message: "Event Deleted Successfully",
             eventId: DeleteEvent._id
         });
     }
     catch (err) {
-        CommonServerError(err, req, res, next);
+        return CommonServerError(err, req, res, next);
     }
 }
 

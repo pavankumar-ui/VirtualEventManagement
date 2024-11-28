@@ -1,0 +1,45 @@
+ //it should read the event with authorized token//
+    it("Should get all the events based on the authenticated Organizer", async () => {
+        try {
+            // Step 1: Create the event
+            const createEventResponse = await request(app)
+                .post("/api/events/createEvents")
+                .set("Authorization", `${token}`)
+                .send({
+                    event_name: "test event",
+                    event_description: "test description",
+                    event_date: "2024-11-30",
+                    event_time: "11:00",
+                    organizerId: organizerId
+                });
+
+            expect(createEventResponse.statusCode).toBe(201); // Ensure creation succeeded
+            const createdEventId = createEventResponse.body.eventId;
+            expect(createdEventId).toBeDefined();
+
+            // Step 2: Fetch events
+            const getEventsResponse = await request(app)
+                .get("/api/events/Getevents")
+                .set("Authorization", `${token}`); // Ensure token is included
+
+            console.log("Get Events Response Status:", getEventsResponse.statusCode);
+            console.log("Get Events Response Body:", getEventsResponse.body);
+
+            expect(getEventsResponse.statusCode).toBe(200);
+            expect(getEventsResponse.body).toHaveProperty("events");
+
+            const events = getEventsResponse.body.events;
+            expect(events).toBeDefined();
+
+            // Step 3: Find the created event
+            const findEvent = events.find(
+                (event) => event.id.toString() === createdEventId.toString()
+            );
+
+            console.log("Found Event:", findEvent);
+            expect(findEvent).toBeDefined();
+        } catch (error) {
+            console.error("Test Error:", error);
+            throw error; // Ensure test fails on error
+        }
+    });
